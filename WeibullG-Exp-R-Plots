@@ -1,0 +1,23 @@
+par(mfrow=c(3,3))  # 3x3 layout
+
+y_Beta <- function(x, alpha, beta, lambda, w){
+  w*alpha*beta*lambda*((1-exp(-lambda*x))^(beta-1))*exp(lambda*beta*x - alpha*(exp(lambda*x)-1)^beta)
+}
+
+x <- seq(0.01, 0.99, length=100)
+
+# Alpha changing example
+alpha_values <- c(4, 2.5, 1, 2)
+colors <- c("red", "yellow", "green", "pink")
+beta <- c(3, 3, 2, 2)
+lambda <- c(1, 1, 2, 2)
+w <- c(0.3, 0.3, 0.7, 0.7)
+
+for(i in 1:length(alpha_values)){
+  y <- y_Beta(x, alpha=alpha_values[i], beta=beta[i], lambda=lambda[i], w=w[i])
+  if(i==1){
+    plot(x, y, type="l", ylim=c(0,3), xlim=c(0,1.5), ylab="DENSITY", col=colors[i])
+  } else {
+    lines(x, y, col=colors[i])
+  }
+}
